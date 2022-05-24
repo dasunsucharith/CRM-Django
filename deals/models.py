@@ -1,9 +1,10 @@
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-User = get_user_model()
 
+class User(AbstractUser):
+    pass 
 
 class Deal(models.Model):
     contact_person = models.CharField(max_length=100)
@@ -17,4 +18,3 @@ class Deal(models.Model):
 
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
