@@ -1,7 +1,15 @@
+from multiprocessing import context
 from django.shortcuts import render
+from .models import Deal
 
 # Create your views here.
 
 
 def home_page(request):
-    return render(request, "home_page.html")
+
+    deals = Deal.objects.all()
+    context = {
+        "deals": deals
+    }
+
+    return render(request, "home_page.html", context)

@@ -9,5 +9,11 @@
 <body>
     <h1>Hello world</h1>
     <p>This is the second template</p>
+
+    <ul>
+        {% for deal in deals %}
+        <li>{{ deal }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
