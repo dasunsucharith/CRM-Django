@@ -15,6 +15,11 @@ class Deal(models.Model):
     email = models.CharField(max_length=100)
     agent = models.ForeignKey("Agent", on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.contact_person}"
 
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.email
