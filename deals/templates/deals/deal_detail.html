@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deal List</title>
+    <title>Deal Detail</title>
     <style>
         .deal {
             padding-top: 10px;
@@ -20,19 +20,10 @@
 </head>
 
 <body>
-    <h1>This is all of our deals</h1>
-    {% for deal in deals %}
-    <div class="deal">
-        <a href="/deals/{{ deal.pk }}" target="_self">
-            {{ deal.contact_person}} |
-            {{ deal.organization }} |
-            {{ deal.title }} |
-            {{ deal.value }} |
-            {{ deal.phone }} |
-            {{ deal.email }}
-        </a>
-    </div>
-    {% endfor %}
+    <a href="/deals" target="_self">Go back to deals</a>
+    <hr />
+    <h1>This is the details of {{ deal.contact_person }}</h1>
+    <p>This Persons phone number is: {{ deal.phone }}</p>
 </body>
 
 </html>
