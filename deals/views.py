@@ -5,11 +5,11 @@ from .models import Deal
 # Create your views here.
 
 
-def home_page(request):
+def deal_list(request):
 
     deals = Deal.objects.all()
     context = {
         "deals": deals
     }
 
-    return render(request, "home_page.html", context)
+    return render(request, "deals/deal_list.html", context)
