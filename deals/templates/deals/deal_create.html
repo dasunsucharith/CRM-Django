@@ -12,8 +12,10 @@
     <a href="/deals" target="_self">Go back to deals</a>
     <hr />
     <h1>Create a new deal</h1>
-    <form>
+    <form method="post">
+        {% csrf_token %}
         {{ form.as_p }}
+        <button type="submit">Submit</button>
     </form>
 </body>
 

@@ -1,5 +1,18 @@
 from django import forms
+from .models import Deal
 
+class DealModelForm(forms.ModelForm):
+    class Meta:
+        model = Deal
+        fields = (
+            'contact_person',
+            'organization',
+            'title',
+            'value',
+            'phone',
+            'email',
+            'agent',
+        )
 
 class DealForm(forms.Form):
     contact_person = forms.CharField()
