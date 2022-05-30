@@ -32,25 +32,7 @@ def deal_create(request):
         print('Receiving a post request')
         form = DealModelForm(request.POST)
         if form.is_valid():
-            print('The form is valid')
-            print(form.cleaned_data)
-            contact_person = form.cleaned_data['contact_person']
-            organization = form.cleaned_data['organization']
-            title = form.cleaned_data['title']
-            value = form.cleaned_data['value']
-            phone = form.cleaned_data['phone']
-            email = form.cleaned_data['email']
-            agent = form.cleaned_data['agent']
-            Deal.objects.create(
-                contact_person=contact_person,
-                organization=organization,
-                title=title,
-                value=value,
-                phone=phone,
-                email=email,
-                agent=agent,
-            )
-            print('The deal has been created!')
+            form.save()
             return redirect('/deals')
     context = {
         "form": form
@@ -59,10 +41,10 @@ def deal_create(request):
 
 
 """ def deal_create(request):
-    form = DealModelForm()
+    form = DealForm()
     if request.method == "POST":
         print('Receiving a post request')
-        form = DealModelForm(request.POST)
+        form = DealForm(request.POST)
         if form.is_valid():
             print('The form is valid')
             print(form.cleaned_data)
