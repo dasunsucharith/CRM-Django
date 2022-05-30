@@ -40,6 +40,51 @@ def deal_create(request):
     return render(request, "deals/deal_create.html", context)
 
 
+def deal_update(request, pk):
+    deal = Deal.objects.get(id=pk)
+    form = DealModelForm(instance=deal)
+    if request.method == "POST":
+        form = DealModelForm(request.POST, instance=deal)
+        if form.is_valid():
+            form.save()
+            return redirect("/deals")
+    context = {
+        "form": form,
+        "lead": deal
+    }
+    return render(request, "deals/deal_update.html", context)
+
+
+""" def deal_update(request, pk):
+    deal = Deal.objects.get(id=pk)
+    form = DealForm()
+    if request.method == "POST":
+        print('Receiving a post request')
+        form = DealForm(request.POST)
+        if form.is_valid():
+            print('The form is valid')
+            print(form.cleaned_data)
+            contact_person = form.cleaned_data['contact_person']
+            organization = form.cleaned_data['organization']
+            title = form.cleaned_data['title']
+            value = form.cleaned_data['value']
+            phone = form.cleaned_data['phone']
+            email = form.cleaned_data['email']
+            deal.contact_person = contact_person
+            deal.organization = organization
+            deal.title = title
+            deal.value = value
+            deal.phone = phone
+            deal.email = email
+            deal.save()
+            return redirect('/deals')
+    context = {
+        "form": form,
+        "deal": deal
+    }
+    return render(request, "deals/deal_update.html", context) """
+
+
 """ def deal_create(request):
     form = DealForm()
     if request.method == "POST":
