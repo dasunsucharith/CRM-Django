@@ -40,6 +40,38 @@ def deal_create(request):
             value = form.cleaned_data['value']
             phone = form.cleaned_data['phone']
             email = form.cleaned_data['email']
+            agent = form.cleaned_data['agent']
+            Deal.objects.create(
+                contact_person=contact_person,
+                organization=organization,
+                title=title,
+                value=value,
+                phone=phone,
+                email=email,
+                agent=agent,
+            )
+            print('The deal has been created!')
+            return redirect('/deals')
+    context = {
+        "form": form
+    }
+    return render(request, "deals/deal_create.html", context)
+
+
+""" def deal_create(request):
+    form = DealModelForm()
+    if request.method == "POST":
+        print('Receiving a post request')
+        form = DealModelForm(request.POST)
+        if form.is_valid():
+            print('The form is valid')
+            print(form.cleaned_data)
+            contact_person = form.cleaned_data['contact_person']
+            organization = form.cleaned_data['organization']
+            title = form.cleaned_data['title']
+            value = form.cleaned_data['value']
+            phone = form.cleaned_data['phone']
+            email = form.cleaned_data['email']
             agent = Agent.objects.first()
             Deal.objects.create(
                 contact_person=contact_person,
@@ -55,4 +87,4 @@ def deal_create(request):
     context = {
         "form": form
     }
-    return render(request, "deals/deal_create.html", context)
+    return render(request, "deals/deal_create.html", context) """
