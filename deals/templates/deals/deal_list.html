@@ -1,16 +1,16 @@
 {% extends "base.html" %} {% block content %}
 
-<section class="text-gray-400 bg-gray-900 body-font">
+<section class="text-gray-600 body-font">
 	<div class="container px-5 py-24 mx-auto flex flex-wrap">
 		<div
 			class="w-full mb-6 py-6 flex justify-between items-center border-b border-gray-200"
 		>
 			<div>
-				<h1 class="text-4xl text-white">Deals</h1>
+				<h1 class="text-4xl text-gray-900">Deals</h1>
 			</div>
 			<div>
 				<a
-					class="text-red-400 hover:text-white"
+					class="text-red-400 hover:text-red-900"
 					href="{% url 'deals:deal-create' %}"
 					>Create a new Deal</a
 				>
@@ -39,11 +39,11 @@
 					</div>
 					<div class="flex-grow">
 						<h2
-							class="text-white text-lg title-font font-medium mb-3"
+							class="text-gray-900 text-lg title-font font-medium mb-3"
 						>
 							{{ deal.contact_person }}
 						</h2>
-						<p class="leading-relaxed text-base">
+						<p class="leading-relaxed text-base text-gray-900">
 							Blue bottle crucifix vinyl post-ironic four dollar
 							toast vegan taxidermy. Gastropub indxgo juice
 							poutine.

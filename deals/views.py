@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse
+from django.core.mail import send_mail
 from django.views import generic
 from .models import Deal, Agent
 from .forms import DealForm, DealModelForm
@@ -46,6 +47,17 @@ class DealCreateView(generic.CreateView):
     
     def get_success_url(self):
         return reverse("deals:deal-list")
+
+    def form_valid(self, form):
+        send_mail(
+            subject="A Deal has been created", 
+            message="Go to the site to see the new deal",
+            from_email="test@test.com",
+            recipient_list=["test2@test.com"]
+        )
+        return super(DealCreateView, self).form_valid(form)
+
+
 
 """ def deal_create(request):
     form = DealModelForm()
