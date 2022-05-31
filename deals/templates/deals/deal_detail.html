@@ -20,11 +20,14 @@
 </head>
 
 <body>
-    <a href="/deals" target="_self">Go back to deals</a>
+    <a href="{% url 'deals:deal-list' %}" target="_self">Go back to deals</a>
     <hr />
     <h1>This is the details of {{ deal.contact_person }}</h1>
     <p>This Persons phone number is: {{ deal.phone }}</p>
     <p>The agent responsible for this deal is : {{ deal.agent }}</p>
+    <hr />
+    <a href="{% url 'deals:deal-update' deal.pk %}">Update</a>
+    <a href="{% url 'deals:deal-delete' deal.pk %}">Delete</a>
 </body>
 
 </html>

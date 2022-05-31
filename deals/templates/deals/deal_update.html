@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <a href="/deals" target="_self">Go back to deals</a>
+    <a href="{% url 'deals:deal-detail' deal.pk %}" target="_self">Go back to {{ deal.contact_person }}</a>
     <hr />
     <h1>Update deal: {{ deal.contact_person }}</h1>
     <form method="post">

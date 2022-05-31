@@ -50,9 +50,14 @@ def deal_update(request, pk):
             return redirect("/deals")
     context = {
         "form": form,
-        "lead": deal
+        "deal": deal
     }
     return render(request, "deals/deal_update.html", context)
+
+def deal_delete(request, pk):
+    deal = Deal.objects.get(id=pk)
+    deal.delete()
+    return redirect("/deals")
 
 
 """ def deal_update(request, pk):

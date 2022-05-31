@@ -20,12 +20,12 @@
 </head>
 
 <body>
-    <a href="/deals/create/">Create a new Deal</a>
+    <a href="{% url 'deals:deal-create' %}">Create a new Deal</a>
     <hr />
     <h1>This is all of our deals</h1>
     {% for deal in deals %}
     <div class="deal">
-        <a href="/deals/{{ deal.pk }}" target="_self">
+        <a href="{% url 'deals:deal-detail' deal.pk %}" target="_self">
             {{ deal.contact_person}} |
             {{ deal.organization }} |
             {{ deal.title }} |
