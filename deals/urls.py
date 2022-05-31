@@ -1,16 +1,12 @@
 from django.urls import path
-from .views import deal_list
-from .views import deal_detail
-from .views import deal_create
-from .views import deal_update
-from .views import deal_delete
+from .views import DealListView, DealDetailView, DealCreateView, DealUpdateView, DealDeleteView
 
 app_name = "deals"
 
 urlpatterns = [
-    path('', deal_list, name='deal-list'),
-    path('create/', deal_create, name='deal-create'),
-    path('<int:pk>/', deal_detail, name='deal-detail'),
-    path('<int:pk>/update/', deal_update, name='deal-update'),
-    path('<int:pk>/delete/',deal_delete, name='deal-delete'),
+    path('', DealListView.as_view(), name='deal-list'),
+    path('create/', DealCreateView.as_view(), name='deal-create'),
+    path('<int:pk>/', DealDetailView.as_view(), name='deal-detail'),
+    path('<int:pk>/update/', DealUpdateView.as_view(), name='deal-update'),
+    path('<int:pk>/delete/', DealDeleteView.as_view(), name='deal-delete'),
 ]

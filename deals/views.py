@@ -1,32 +1,53 @@
-from multiprocessing import context
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
+from django.views import generic
 from .models import Deal, Agent
 from .forms import DealForm, DealModelForm
 
 # Create your views here.
 
+class LandingPageView(generic.TemplateView):
+    template_name = "landing.html"
 
-def deal_list(request):
+""" def landing_page(request):
+    return render(request, "landing.html") """
+
+class DealListView(generic.ListView):
+    template_name = "deals/deal_list.html"
+    queryset = Deal.objects.all()
+    context_object_name = "deals"
+
+""" def deal_list(request):
 
     deals = Deal.objects.all()
     context = {
         "deals": deals
     }
 
-    return render(request, "deals/deal_list.html", context)
+    return render(request, "deals/deal_list.html", context) """
 
+class DealDetailView(generic.DetailView):
+    template_name = "deals/deal_detail.html"
+    queryset = Deal.objects.all()
+    context_object_name = "deal"
 
-def deal_detail(request, pk):
+""" def deal_detail(request, pk):
     deal = Deal.objects.get(id=pk)
     context = {
         "deal": deal
     }
 
-    return render(request, "deals/deal_detail.html", context)
+    return render(request, "deals/deal_detail.html", context) """
 
 
-def deal_create(request):
+class DealCreateView(generic.CreateView):
+    template_name = "deals/deal_create.html"
+    form_class = DealModelForm
+    
+    def get_success_url(self):
+        return reverse("deals:deal-list")
+
+""" def deal_create(request):
     form = DealModelForm()
     if request.method == "POST":
         print('Receiving a post request')
@@ -38,9 +59,17 @@ def deal_create(request):
         "form": form
     }
     return render(request, "deals/deal_create.html", context)
+ """
 
+class DealUpdateView(generic.UpdateView):
+    template_name = "deals/deal_update.html"
+    queryset = Deal.objects.all()
+    form_class = DealModelForm
 
-def deal_update(request, pk):
+    def get_success_url(self):
+        return reverse("deals:deal-list")
+
+""" def deal_update(request, pk):
     deal = Deal.objects.get(id=pk)
     form = DealModelForm(instance=deal)
     if request.method == "POST":
@@ -52,13 +81,20 @@ def deal_update(request, pk):
         "form": form,
         "deal": deal
     }
-    return render(request, "deals/deal_update.html", context)
+    return render(request, "deals/deal_update.html", context) """
 
-def deal_delete(request, pk):
+class DealDeleteView(generic.DeleteView):
+    template_name = "deals/deal_delete.html"
+    queryset = Deal.objects.all()
+
+    def get_success_url(self):
+        return reverse("deals:deal-list")
+
+""" def deal_delete(request, pk):
     deal = Deal.objects.get(id=pk)
     deal.delete()
     return redirect("/deals")
-
+ """
 
 """ def deal_update(request, pk):
     deal = Deal.objects.get(id=pk)
