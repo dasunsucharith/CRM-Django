@@ -6,6 +6,12 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     pass 
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
 class Deal(models.Model):
     contact_person = models.CharField(max_length=100)
     organization = models.CharField(max_length=100)
@@ -20,6 +26,7 @@ class Deal(models.Model):
 
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.email
