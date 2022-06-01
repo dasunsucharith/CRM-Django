@@ -3,20 +3,32 @@ from django.shortcuts import render, redirect, reverse
 from django.core.mail import send_mail
 from django.views import generic
 from .models import Deal, Agent
-from .forms import DealForm, DealModelForm
+from .forms import DealForm, DealModelForm, CustomUserCreationForm
 
 # Create your views here.
+
+
+class SignupView(generic.CreateView):
+    template_name = "registration/signup.html"
+    form_class = CustomUserCreationForm
+
+    def get_success_url(self):
+        return reverse("login")
+
 
 class LandingPageView(generic.TemplateView):
     template_name = "landing.html"
 
+
 """ def landing_page(request):
     return render(request, "landing.html") """
+
 
 class DealListView(generic.ListView):
     template_name = "deals/deal_list.html"
     queryset = Deal.objects.all()
     context_object_name = "deals"
+
 
 """ def deal_list(request):
 
@@ -27,10 +39,12 @@ class DealListView(generic.ListView):
 
     return render(request, "deals/deal_list.html", context) """
 
+
 class DealDetailView(generic.DetailView):
     template_name = "deals/deal_detail.html"
     queryset = Deal.objects.all()
     context_object_name = "deal"
+
 
 """ def deal_detail(request, pk):
     deal = Deal.objects.get(id=pk)
@@ -44,19 +58,18 @@ class DealDetailView(generic.DetailView):
 class DealCreateView(generic.CreateView):
     template_name = "deals/deal_create.html"
     form_class = DealModelForm
-    
+
     def get_success_url(self):
         return reverse("deals:deal-list")
 
     def form_valid(self, form):
         send_mail(
-            subject="A Deal has been created", 
+            subject="A Deal has been created",
             message="Go to the site to see the new deal",
             from_email="test@test.com",
             recipient_list=["test2@test.com"]
         )
         return super(DealCreateView, self).form_valid(form)
-
 
 
 """ def deal_create(request):
@@ -73,6 +86,7 @@ class DealCreateView(generic.CreateView):
     return render(request, "deals/deal_create.html", context)
  """
 
+
 class DealUpdateView(generic.UpdateView):
     template_name = "deals/deal_update.html"
     queryset = Deal.objects.all()
@@ -80,6 +94,7 @@ class DealUpdateView(generic.UpdateView):
 
     def get_success_url(self):
         return reverse("deals:deal-list")
+
 
 """ def deal_update(request, pk):
     deal = Deal.objects.get(id=pk)
@@ -95,12 +110,14 @@ class DealUpdateView(generic.UpdateView):
     }
     return render(request, "deals/deal_update.html", context) """
 
+
 class DealDeleteView(generic.DeleteView):
     template_name = "deals/deal_delete.html"
     queryset = Deal.objects.all()
 
     def get_success_url(self):
         return reverse("deals:deal-list")
+
 
 """ def deal_delete(request, pk):
     deal = Deal.objects.get(id=pk)
