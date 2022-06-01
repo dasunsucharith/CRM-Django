@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.views import generic
 from .models import Deal, Agent
@@ -24,7 +25,7 @@ class LandingPageView(generic.TemplateView):
     return render(request, "landing.html") """
 
 
-class DealListView(generic.ListView):
+class DealListView(LoginRequiredMixin, generic.ListView):
     template_name = "deals/deal_list.html"
     queryset = Deal.objects.all()
     context_object_name = "deals"
@@ -40,7 +41,7 @@ class DealListView(generic.ListView):
     return render(request, "deals/deal_list.html", context) """
 
 
-class DealDetailView(generic.DetailView):
+class DealDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "deals/deal_detail.html"
     queryset = Deal.objects.all()
     context_object_name = "deal"
@@ -55,7 +56,7 @@ class DealDetailView(generic.DetailView):
     return render(request, "deals/deal_detail.html", context) """
 
 
-class DealCreateView(generic.CreateView):
+class DealCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "deals/deal_create.html"
     form_class = DealModelForm
 
@@ -87,7 +88,7 @@ class DealCreateView(generic.CreateView):
  """
 
 
-class DealUpdateView(generic.UpdateView):
+class DealUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "deals/deal_update.html"
     queryset = Deal.objects.all()
     form_class = DealModelForm
@@ -111,7 +112,7 @@ class DealUpdateView(generic.UpdateView):
     return render(request, "deals/deal_update.html", context) """
 
 
-class DealDeleteView(generic.DeleteView):
+class DealDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = "deals/deal_delete.html"
     queryset = Deal.objects.all()
 
