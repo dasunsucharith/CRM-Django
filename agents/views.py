@@ -29,7 +29,8 @@ class AgentDetailView(LoginRequiredMixin, generic.DetailView):
     context_object_name = 'agent'
 
     def get_queryset(self):
-        return Agent.objects.all()
+        organization = self.request.user.userprofile
+        return Agent.objects.filter(organization=organization)
 
 class AgentUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'agents/agent_update.html'
@@ -39,7 +40,8 @@ class AgentUpdateView(LoginRequiredMixin, generic.UpdateView):
         return reverse('agents:agent-list')
 
     def get_queryset(self):
-        return Agent.objects.all()
+        organization = self.request.user.userprofile
+        return Agent.objects.filter(organization=organization)
 
 class AgentDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'agents/agent_delete.html'
@@ -49,4 +51,5 @@ class AgentDeleteView(LoginRequiredMixin, generic.DeleteView):
         return reverse('agents:agent-list')
 
     def get_queryset(self):
-        return Agent.objects.all()
+        organization = self.request.user.userprofile
+        return Agent.objects.filter(organization=organization)
